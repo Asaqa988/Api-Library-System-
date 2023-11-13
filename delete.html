@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Book</title>
+</head>
+<body>
+    <center>
+        <img src="https://th.bing.com/th/id/OIP.HXgn0-nG4Ch9CZwXyqlrKQHaDt?pid=ImgDet&rs=1" alt="">
+    </center>
+
+    <form id="deleteForm">
+        <label for="bookID">Please enter the ID of the book:</label>
+        <input type="text" id="bookID" name="bookID" required>
+        <br><br>
+        <button type="button" onclick="deleteBook()">Delete Book</button>
+    </form>
+
+    <script>
+        function deleteBook() {
+            // Get book ID
+            var bookID = document.getElementById('bookID').value;
+
+            // Send DELETE request using fetch
+            fetch('https://rahulshettyacademy.com/Library/DeleteBook.php', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ID: bookID })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response:', data);
+                // Handle the response as needed
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

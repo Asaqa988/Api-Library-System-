@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Book Information</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        img {
+            width: 20%;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #bookInfo {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
+            max-width: 400px;
+            overflow-x: auto;
+        }
+
+        #homeButton {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #homeButton:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://th.bing.com/th/id/R.ca1dee8d2f2c10ebd3bdf49de70d96b0?rik=eUvN4CxxhorKXg&pid=ImgRaw&r=0">
+
+    <form id="getBookForm">
+        <label for="bookID">Please enter the ID of the book:</label>
+        <input type="text" id="bookID" name="bookID" required>
+        <br>
+        <button type="button" onclick="getBook()">Get Book Information</button>
+    </form>
+
+    <div id="bookInfo"></div>
+
+    <button id="homeButton" onclick="goToHomePage()">Go to Home Page</button>
+
+    <script>
+        async function getBook() {
+            const bookID = document.getElementById('bookID').value;
+
+            try {
+                const response = await fetch(`https://rahulshettyacademy.com/Library/GetBook.php?ID=${bookID}`);
+                const data = await response.json();
+
+                // Display the book information
+                const bookInfoDiv = document.getElementById('bookInfo');
+                bookInfoDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function goToHomePage() {
+            // Redirect to the home page (change 'home.html' to the actual home page URL)
+            window.location.href = 'home.html';
+        }
+    </script>
+</body>
+</html>
